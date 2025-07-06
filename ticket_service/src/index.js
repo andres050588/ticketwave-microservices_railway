@@ -34,7 +34,7 @@ async function startServer() {
     try {
         await sequelize.authenticate()
         console.log("Connessione al database ticket_service riuscita!!")
-        await sequelize.sync() // aggiungo { force: true } se voglio ressetare i dati nella db
+        await sequelize.sync({ force: true }) // aggiungo { force: true } se voglio ressetare i dati nella db
 
         const PORT = process.env.PORT || 3002
         app.listen(PORT, () => {
