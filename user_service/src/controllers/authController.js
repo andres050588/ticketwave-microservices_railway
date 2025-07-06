@@ -34,6 +34,7 @@ export const register = async (request, response) => {
             id: user.id,
             name: user.name,
             email: user.email,
+            isAdmin: user.isAdmin,
             createdAt: user.createdAt.toISOString()
         }
 
@@ -256,23 +257,17 @@ export const updateUserProfile_ByAdmin = async (request, response) => {
     }
 }
 
-export const deleteUser_ByAdmin = async (request, response) => {
+export const deleteUser_ByAdmin = async (req, res) => {
     try {
-        const userToDeleId = request.params.id
-        const confirmationText = request.body.confirmationText
-        if (confirmationText !== "confermo cancellazione") {
-            return response.status(400).json({ error: "Per cancellare, scrivi 'conferma cancellazione'" })
-        }
+        const userId = req.params.id
 
-        const userToDelete = await User.findByPk(userToDeleId)
-        if (!userToDelete) {
-            console.error("Utente per cancellare non trovato")
-            return response.status(404).json({ error: "Utente per cancellare non trovato" })
-        }
-        await User.destroy({ where: { id: userToDeleId } })
-        return response.status(200).json({ message: "Utente eliminato con successo" })
+        const user = await User.findByPk(userId)
+        if (!user) return res.status(404).json({ error: "Utente non trovato" })
+
+        await user.destroy()
+        return res.json({ message: "Utente eliminato con successo" })
     } catch (error) {
-        console.error("Errore nela cancellazione utente", error)
-        return response.status(500).json({ error: "Errore server" })
+        console.error("Errore nella cancellazione utente:", error)
+        return res.status(500).json({ error: "Errore del server" })
     }
 }
