@@ -1,11 +1,11 @@
 import Redis from "ioredis"
 
 const redis = new Redis({
-    host: process.env.REDIS_URL, // es: redis.upstash.io
-    port: Number(process.env.REDIS_PORT), // es: 6379
-    username: process.env.REDIS_USER || "default",
+    host: process.env.REDIS_HOST,
+    port: Number(process.env.REDIS_PORT),
+    username: process.env.REDIS_USER,
     password: process.env.REDIS_PASSWORD,
-    tls: {}, // ✅ IMPORTANTE per Railway / Upstash
+    tls: {},
     retryStrategy(times) {
         const delay = Math.min(times * 50, 2000)
         console.log(`Tentativo riconnessione Redis Nr${times} in ${delay}ms`)
