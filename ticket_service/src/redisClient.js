@@ -1,17 +1,21 @@
 import Redis from "ioredis"
 
-const redis = new Redis({
-    host: process.env.REDIS_HOST || "localhost",
-    port: process.env.REDIS_PORT || 6379,
-    password: process.env.REDIS_PASSWORD || ""
+const redis = new Redis(process.env.REDIS_URL, {
+    connectTimeout: 5000,
+    retryStrategy(times) {
+        const delay = Math.min(times * 50, 2000)
+        console.log(`Tentativo riconnessione Redis Nr${times} in ${delay}ms`)
+        return delay
+    },
+    tls: {}
 })
 
 redis.on("connect", () => {
-    console.log("[ticket-service] Connesso a Redis")
+    console.log("[ticket-service] ✅ Connesso a Redis")
 })
 
 redis.on("error", err => {
-    console.error("[ticket-service] ❌ Errore Redis:", err)
+    console.error("❌ Errore connessione Redis:", err)
 })
 
 export default redis

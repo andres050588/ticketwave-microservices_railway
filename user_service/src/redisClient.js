@@ -1,7 +1,5 @@
 import Redis from "ioredis"
 
-console.log("🌐 Redis URL usata:", process.env.REDIS_URL)
-
 const redis = new Redis(process.env.REDIS_URL, {
     connectTimeout: 5000,
     retryStrategy(times) {

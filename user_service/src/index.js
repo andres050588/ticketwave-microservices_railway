@@ -38,6 +38,7 @@ async function startServer(retry = MAX_RETRY) {
             console.log(`User service listening on port ${PORT}`)
         })
     } catch (error) {
+        console.error("❌ Errore connessione DB:", error)
         if (retry > 0) {
             console.log(`Riprovo a connettermi... Tentativi rimasti: ${retry}`)
             setTimeout(() => startServer(retry - 1), 5000)
