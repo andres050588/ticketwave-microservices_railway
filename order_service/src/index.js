@@ -39,7 +39,7 @@ async function startServer() {
     let retries = 5
     while (retries) {
         try {
-            await sequelize.authenticate()
+            await sequelize.sync({ force: true }) // aggiungo { force: true } se voglio ressetare i dati nella db
             console.log("Connessione al database order_service riuscita!")
             break
         } catch (err) {

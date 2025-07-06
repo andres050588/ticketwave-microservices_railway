@@ -31,7 +31,7 @@ async function startServer(retry = MAX_RETRY) {
     try {
         await sequelize.authenticate()
         console.log("Connessione al database user_service riuscita!")
-        await sequelize.sync({ force: true }) // aggiungo { force: true } se voglio ressetare i dati nella db
+        await sequelize.sync() // aggiungo { force: true } se voglio ressetare i dati nella db
 
         const PORT = process.env.PORT || 3001
         app.listen(PORT, "0.0.0.0", () => {
