@@ -1,0 +1,31 @@
+{
+    "name": "ticket_service",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon -r dotenv/config ./src/index.js",
+        "start": "node -r dotenv/config ./src/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "bcrypt": "^6.0.0",
+        "cloudinary": "^1.41.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.5.0",
+        "express": "^4.21.2",
+        "ioredis": "^5.6.1",
+        "jsonwebtoken": "^9.0.2",
+        "multer": "^2.0.1",
+        "multer-storage-cloudinary": "^4.0.0",
+        "mysql2": "^3.14.1",
+        "sequelize": "^6.37.7"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.10"
+    }
+}
