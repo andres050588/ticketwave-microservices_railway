@@ -1,6 +1,6 @@
 import Redis from "ioredis"
 
-const redisUrl = process.env.REDIS_URL
+const redisUrl = process.env.REDIS_URL + "?family=0"
 console.log("🌐 Redis URL usata:", redisUrl)
 
 const redis = new Redis(redisUrl, {
