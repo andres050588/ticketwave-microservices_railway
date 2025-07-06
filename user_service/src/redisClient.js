@@ -1,7 +1,8 @@
 import Redis from "ioredis"
 
-const redis = new Redis(`${process.env.REDIS_URL}?family=0`, {
-    tls: {}, // Railway richiede TLS, anche se non lo dice esplicitamente nel nome host
+const redis = new Redis(`${process.env.REDIS_URL}`, {
+    tls: {}, // ☑️ necessario su Railway
+    family: 6, // ☑️ forza uso IPv6
     connectTimeout: 5000,
     retryStrategy(times) {
         const delay = Math.min(times * 50, 2000)
