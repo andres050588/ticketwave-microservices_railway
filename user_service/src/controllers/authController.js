@@ -97,7 +97,7 @@ export const userProfile = async (request, response) => {
 
         // Se non è in cache, leggi dal DB
         const user = await User.findByPk(userId, {
-            attributes: ["id", "name", "email", "createdAt"]
+            attributes: ["id", "name", "email", "createdAt", "isAdmin"]
         })
         if (!user) {
             return response.status(404).json({ error: "Utente non trovato" })
