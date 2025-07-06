@@ -6,8 +6,7 @@ const redis = new Redis(process.env.REDIS_URL, {
         const delay = Math.min(times * 50, 2000)
         console.log(`Tentativo riconnessione Redis Nr${times} in ${delay}ms`)
         return delay
-    },
-    tls: {}
+    }
 })
 
 redis.on("connect", () => {
