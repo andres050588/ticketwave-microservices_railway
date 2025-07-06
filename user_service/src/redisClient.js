@@ -1,6 +1,9 @@
 import Redis from "ioredis"
 
-const redis = new Redis(`${process.env.REDIS_URL}`, {
+const redisUrl = process.env.REDIS_URL
+console.log("🌐 Redis URL usata:", redisUrl)
+
+const redis = new Redis(redisUrl, {
     tls: {}, // ☑️ necessario su Railway
     family: 6, // ☑️ forza uso IPv6
     connectTimeout: 5000,
