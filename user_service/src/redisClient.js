@@ -1,7 +1,7 @@
 import Redis from "ioredis"
 
 const redis = new Redis({
-    host: process.env.REDIS_HOST, // es: redis.upstash.io
+    host: process.env.REDIS_URL, // es: redis.upstash.io
     port: Number(process.env.REDIS_PORT), // es: 6379
     username: process.env.REDIS_USER || "default",
     password: process.env.REDIS_PASSWORD,
