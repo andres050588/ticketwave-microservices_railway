@@ -1,14 +1,17 @@
 import Redis from "ioredis"
+import dns from "dns"
 
-const redisUrl = process.env.REDIS_URL + "?family=0"
-console.log("🌐 Redis URL usata:", redisUrl)
+dns.lookup("redis.railway.internal", (err, address, family) => {
+    if (err) console.error("DNS lookup fallito:", err)
+    else console.log(`DNS lookup riuscito: ${address} (IPv${family})`)
+})
 
-const redis = new Redis(redisUrl, {
-    tls: {}, // ☑️ necessario su Railway
-    family: 6, // ☑️ forza uso IPv6
+const redis = new Redis(process.env.REDIS_URL, {
+    tls: {}, // ☑️ TLS necessario
+    family: 6, // ☑️ IPv6 obbligatorio per .railway.internal
     connectTimeout: 5000,
     retryStrategy(times) {
-        const delay = Math.min(times * 50, 2000)
+        const delay = Math.min(times * 100, 2000)
         console.log(`Tentativo riconnessione Redis Nr${times} in ${delay}ms`)
         return delay
     }
